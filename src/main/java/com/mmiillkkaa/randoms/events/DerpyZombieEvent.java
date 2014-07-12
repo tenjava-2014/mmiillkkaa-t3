@@ -19,7 +19,7 @@ public class DerpyZombieEvent extends RandomEvent {
 
     public DerpyZombieEvent(Player affected) {
         super(affected);
-        area = new Cuboid(affected.getLocation().add(-3, 0, -3), affected.getLocation().add(3, 0, 3));
+        area = new Cuboid(affected.getLocation().clone().add(-3, 0, -3), affected.getLocation().add(3, 1, 3));
     }
 
     @Override

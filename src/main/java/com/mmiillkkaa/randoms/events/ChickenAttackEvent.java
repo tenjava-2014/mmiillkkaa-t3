@@ -3,6 +3,7 @@ package com.mmiillkkaa.randoms.events;
 import com.mmiillkkaa.randoms.RandomsPlugin;
 import com.mmiillkkaa.randoms.util.AnimalFollow;
 import com.mmiillkkaa.randoms.util.Cuboid;
+import net.minecraft.server.v1_7_R3.PacketPlayOutEntityDestroy;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -29,7 +30,9 @@ public class ChickenAttackEvent extends RandomEvent {
         super(affected);
 
         Location playerLocation = affected.getEyeLocation();
-        area = new Cuboid(playerLocation.add(-2, 0, -2), playerLocation.add(2, 1, 2));
+
+        // Clone prevents undoing the addition
+        area = new Cuboid(playerLocation.clone().add(-2, 0, -2), playerLocation.add(2, 2, 2));
     }
 
     @Override
@@ -69,6 +72,8 @@ public class ChickenAttackEvent extends RandomEvent {
             attackingEntity.setTarget(affected);
             attackingEntity.setMaxHealth(2000D);
             attackingEntity.setHealth(2000D); //We don't want the silverfish to die.
+
+            ((CraftPlayer) affected).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityDestroy(attackingEntity.getEntityId()));
         }
     }
 }
