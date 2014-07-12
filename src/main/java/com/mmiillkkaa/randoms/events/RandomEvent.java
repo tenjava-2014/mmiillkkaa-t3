@@ -2,9 +2,15 @@ package com.mmiillkkaa.randoms.events;
 
 import org.bukkit.entity.Player;
 
+/**
+ * Represents an event which will affect a player
+ */
 public abstract class RandomEvent {
     protected Player affected;
 
+    /**
+     * @param affected Anything this event does will happen to the given player.
+     */
     public RandomEvent(Player affected) {
         this.affected = affected;
     }

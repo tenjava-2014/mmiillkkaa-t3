@@ -14,6 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
+
 public class RandomsPlugin extends JavaPlugin {
     private static RandomsPlugin instance;
     private EventManager eventManager;
@@ -21,6 +23,9 @@ public class RandomsPlugin extends JavaPlugin {
      * Inventory containing 2 options: set events per hour, or setup creeper item.
      */
     private Inventory setupCommandInventory;
+    /**
+     * Inventory which allows the user to click which item to drop.
+     */
     public Inventory creeperCommandInventory;
 
     @Override
@@ -35,6 +40,10 @@ public class RandomsPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         instance = this;
+
+        if(getConfig().getItemStack("DerpyZombie.DropItemStack") == null) {
+            getConfig().set("DerpyZombie.DropItemStack", new ItemStack(Material.APPLE, 1));
+        }
 
         setupCommandInventory = getServer().createInventory(null, 27, "Setup - mmRandoms");
         ItemStack choiceSetEventsPerHour = new ItemStack(Material.REDSTONE_BLOCK, 1);
@@ -52,7 +61,8 @@ public class RandomsPlugin extends JavaPlugin {
 
         creeperCommandInventory = getServer().createInventory(null, 9, "Derpy Zombie Drop");
         ItemStack tipPlaceItem = new ItemStack(Material.EMERALD, 1);
-        setItemName(tipPlaceItem, "Place the item for derpy zombie to drop.");
+        setItemName(tipPlaceItem, "Click an item.");
+        setStackLore(tipPlaceItem, new String[] {"The stack you click", "will be the stack", "the zombie drops."});
         creeperCommandInventory.setItem(4, tipPlaceItem);
     }
 
@@ -61,6 +71,9 @@ public class RandomsPlugin extends JavaPlugin {
         saveConfig();
     }
 
+    /**
+     * @return The running instance.
+     */
     public static RandomsPlugin getInstance() {
         return instance;
     }
@@ -117,9 +130,25 @@ public class RandomsPlugin extends JavaPlugin {
         return false;
     }
 
+    /**
+     * Sets the ItemStack's name.
+     * @param stack ItemStack to rename.
+     * @param name New name.
+     */
     private void setItemName(ItemStack stack, String name) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(name);
+        stack.setItemMeta(meta);
+    }
+
+    /**
+     * Sets the ItemStack's lore
+     * @param stack ItemStack to edit
+     * @param lines New lore
+     */
+    private void setStackLore(ItemStack stack, String lines[]) {
+        ItemMeta meta = stack.getItemMeta();
+        meta.setLore(Arrays.asList(lines));
         stack.setItemMeta(meta);
     }
 }

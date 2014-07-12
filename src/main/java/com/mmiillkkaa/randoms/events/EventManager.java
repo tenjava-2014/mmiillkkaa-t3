@@ -47,6 +47,11 @@ public class EventManager implements Runnable {
         return triggerEvent(event);
     }
 
+    /**
+     * Actually triggers the event
+     * @param event Event to run
+     * @return true if event ran, else false.
+     */
     public boolean triggerEvent(RandomEvent event) {
         if(event.safe()) {
             event.execute();
