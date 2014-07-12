@@ -1,8 +1,11 @@
 package com.mmiillkkaa.randoms.events;
 
+import com.mmiillkkaa.randoms.RandomsPlugin;
+import com.mmiillkkaa.randoms.util.AnimalFollow;
 import com.mmiillkkaa.randoms.util.Cuboid;
 import net.minecraft.server.v1_7_R3.EntityChicken;
 import net.minecraft.server.v1_7_R3.PathEntity;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -52,9 +55,13 @@ public class ChickenAttackEvent extends RandomEvent {
         for(int i = 0; i < numberOfChickens; i++) {
             Chicken theChicken = (Chicken) world.spawnEntity(area.getRandomLocation(world), EntityType.CHICKEN); // __THE__ chicken.
 
-            EntityChicken mcChicken = ((CraftChicken)theChicken).getHandle();
-            PathEntity pathToPlayer = mcChicken.getNavigation().a(((CraftPlayer)affected).getHandle()); //Temporary test
-            mcChicken.getNavigation().a(pathToPlayer, 1D);
+            /*
+             * See the AnimalFollow class for more information.
+             * The AnimalFollow task will run every 10 ticks (0.5 seconds)
+             */
+            AnimalFollow followTask = new AnimalFollow(((CraftChicken)theChicken).getHandle(), ((CraftPlayer)affected).getHandle());
+            followTask.setBukkitTaskId(Bukkit.getScheduler()
+                    .scheduleSyncRepeatingTask(RandomsPlugin.getInstance(), followTask, 0, 10));
 
             Silverfish attackingEntity = (Silverfish) world.spawnEntity(area.getRandomLocation(world),EntityType.SILVERFISH);
             attackingEntity.addPotionEffect(invisibility);

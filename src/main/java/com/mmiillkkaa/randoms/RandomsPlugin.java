@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RandomsPlugin extends JavaPlugin {
+    private static RandomsPlugin instance;
+
     @Override
     public void onEnable() {
         int eventsPerHour = getConfig().getInt("EventsPerHour", 1);
@@ -20,11 +22,16 @@ public class RandomsPlugin extends JavaPlugin {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new EventSchedule(), 0, delay);
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        instance = this;
     }
 
     @Override
     public void onDisable() {
         saveConfig();
+    }
+
+    public static RandomsPlugin getInstance() {
+        return instance;
     }
 
     @Override
