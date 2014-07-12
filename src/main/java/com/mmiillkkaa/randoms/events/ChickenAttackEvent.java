@@ -1,10 +1,14 @@
 package com.mmiillkkaa.randoms.events;
 
 import com.mmiillkkaa.randoms.util.Cuboid;
+import net.minecraft.server.v1_7_R3.EntityChicken;
+import net.minecraft.server.v1_7_R3.PathEntity;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftChicken;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -47,10 +51,17 @@ public class ChickenAttackEvent extends RandomEvent {
         World world = affected.getWorld();
         for(int i = 0; i < numberOfChickens; i++) {
             Chicken theChicken = (Chicken) world.spawnEntity(area.getRandomLocation(world), EntityType.CHICKEN); // __THE__ chicken.
+
+            EntityChicken mcChicken = ((CraftChicken)theChicken).getHandle();
+            PathEntity pathToPlayer = mcChicken.getNavigation().a(((CraftPlayer)affected).getHandle()); //Temporary test
+            mcChicken.getNavigation().a(pathToPlayer, 1D);
+
             Silverfish attackingEntity = (Silverfish) world.spawnEntity(area.getRandomLocation(world),EntityType.SILVERFISH);
             attackingEntity.addPotionEffect(invisibility);
-            attackingEntity.setPassenger(theChicken);
+            theChicken.setPassenger(attackingEntity);
             attackingEntity.setTarget(affected);
+            attackingEntity.setMaxHealth(2000D);
+            attackingEntity.setHealth(2000D); //We don't want the silverfish to die.
         }
     }
 }

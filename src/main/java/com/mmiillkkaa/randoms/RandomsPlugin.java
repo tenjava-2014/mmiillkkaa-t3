@@ -2,6 +2,7 @@ package com.mmiillkkaa.randoms;
 
 import com.mmiillkkaa.randoms.events.ChickenAttackEvent;
 import com.mmiillkkaa.randoms.events.EventSchedule;
+import com.mmiillkkaa.randoms.listener.EntityListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,6 +18,8 @@ public class RandomsPlugin extends JavaPlugin {
                                                   // Divided by the number of events in an hour gives us
                                                   // The delay between each event.
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new EventSchedule(), 0, delay);
+
+        getServer().getPluginManager().registerEvents(new EntityListener(), this);
     }
 
     @Override
