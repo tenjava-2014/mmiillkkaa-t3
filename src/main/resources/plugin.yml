@@ -6,3 +6,6 @@ commands:
   triggerrandom:
     usage: /triggerrandom
     description: Triggers a random event for debugging purposes.
+  eventsperhour:
+    usage: /eventsperhour [number]
+    description: Shows the number of events per hour, or sets it to the given number.
