@@ -3,8 +3,6 @@ package com.mmiillkkaa.randoms.events;
 import com.mmiillkkaa.randoms.RandomsPlugin;
 import com.mmiillkkaa.randoms.util.AnimalFollow;
 import com.mmiillkkaa.randoms.util.Cuboid;
-import net.minecraft.server.v1_7_R3.EntityChicken;
-import net.minecraft.server.v1_7_R3.PathEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

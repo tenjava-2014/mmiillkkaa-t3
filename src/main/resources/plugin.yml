@@ -4,7 +4,7 @@ author: mmiillkkaa
 version: '${project.version}'
 commands:
   triggerrandom:
-    usage: /triggerrandom
+    usage: /triggerrandom [number]
     description: Triggers a random event for debugging purposes.
   eventsperhour:
     usage: /eventsperhour [number]

@@ -1,7 +1,7 @@
 package com.mmiillkkaa.randoms;
 
-import com.mmiillkkaa.randoms.events.ChickenAttackEvent;
-import com.mmiillkkaa.randoms.events.EventSchedule;
+import com.mmiillkkaa.randoms.events.EventManager;
+import com.mmiillkkaa.randoms.events.RandomEvent;
 import com.mmiillkkaa.randoms.listener.EntityListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class RandomsPlugin extends JavaPlugin {
     private static RandomsPlugin instance;
+    private EventManager eventManager;
 
     @Override
     public void onEnable() {
@@ -19,7 +20,8 @@ public class RandomsPlugin extends JavaPlugin {
         int delay = (20 * 60 * 60)/eventsPerHour; // Ticks Per Second * Seconds per Minute * Minutes per Hour all
                                                   // Divided by the number of events in an hour gives us
                                                   // The delay between each event.
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new EventSchedule(), 0, delay);
+        eventManager = new EventManager();
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, eventManager, 0, delay);
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         instance = this;
@@ -46,11 +48,32 @@ public class RandomsPlugin extends JavaPlugin {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to trigger events on yourself.");
             }
 
-            ChickenAttackEvent event = new ChickenAttackEvent((Player) sender);
-            if(event.safe()) {
-                event.execute();
-            } else {
-                sender.sendMessage(ChatColor.RED + "Event not possible.");
+            if(args.length == 0) {
+                String[] messages = new String[] {"Events:",
+                                                  "  0 = Undefined",
+                                                  "  1 = Stalker Derpy Pig",
+                                                  "  2 = Chicken Attack"};
+                sender.sendMessage(messages);
+                return true;
+            }
+
+            Player p = (Player) sender;
+            int eventNumber;
+            try {
+                eventNumber = Integer.parseInt(args[0]);
+                if(eventNumber > 2 || eventNumber == 0) {
+                    sender.sendMessage(ChatColor.RED + "" + eventNumber + " is not a valid event. Use /triggerrandom to get a list of" +
+                            " events.");
+                    return true;
+                }
+            } catch (NumberFormatException e) {
+                sender.sendMessage(ChatColor.RED + "That is not a number, and example of an acceptable number" +
+                        " would be 5 or 12345");
+                return true;
+            }
+
+            if(!eventManager.triggerEvent(eventNumber, p)) {
+                p.sendMessage(ChatColor.RED + "Could not run the event in your environment.");
             }
             return true;
         } else if(command.getName().equalsIgnoreCase("eventsperhour")) {
