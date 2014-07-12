@@ -8,8 +8,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
 
 public class EntityListener implements Listener {
 
@@ -31,6 +34,21 @@ public class EntityListener implements Listener {
         } else if(entity instanceof Zombie && entity.getEquipment().getHelmet().getType() == Material.DIRT) {
             ItemStack stack = RandomsPlugin.getInstance().getConfig().getItemStack("DerpyZombie.DropItemStack");
             entity.getWorld().dropItemNaturally(entity.getLocation(), stack);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onLightningStrikeEntities(LightningStrikeEvent event) {
+        if(event.isCancelled()) {
+            return;
+        }
+        List<Entity> entities = event.getLightning().getNearbyEntities(1, 0, 1);
+        for(Entity entity : entities) {
+            if(entity instanceof Zombie) { //On zombie lightning strike, transform into Giant.
+                ((Zombie) entity).setHealth(1D);
+                Giant giant = (Giant) entity.getWorld().spawnEntity(entity.getLocation(), EntityType.GIANT);
+                giant.getEquipment().setHelmet(new ItemStack(Material.DIRT, 1));
+            }
         }
     }
 }
