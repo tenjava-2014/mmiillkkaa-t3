@@ -1,18 +1,24 @@
 package com.mmiillkkaa.randoms;
 
 import com.mmiillkkaa.randoms.events.EventManager;
-import com.mmiillkkaa.randoms.events.RandomEvent;
 import com.mmiillkkaa.randoms.listener.EntityListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RandomsPlugin extends JavaPlugin {
     private static RandomsPlugin instance;
     private EventManager eventManager;
+    /**
+     * Inventory containing 2 options: set events per hour, or setup creeper item.
+     */
+    private Inventory setupCommandInventory;
 
     @Override
     public void onEnable() {
@@ -25,6 +31,21 @@ public class RandomsPlugin extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         instance = this;
+
+        setupCommandInventory = getServer().createInventory(null, 27, "Setup");
+        ItemStack choiceSetEventsPerHour = new ItemStack(Material.REDSTONE_BLOCK, 1);
+        ItemStack choiceSetDerpyCreeperDropItem = new ItemStack(Material.EMERALD_BLOCK, 1);
+        choiceSetEventsPerHour.getItemMeta().setDisplayName("Set # of events per hour");
+        choiceSetDerpyCreeperDropItem.getItemMeta().setDisplayName("Set drop of the derpy creeper event.");
+        for(int i = 0; i < 27; i++) {
+            int x = i / 9;
+            int y = i % 9;
+            if(x < 3) {
+                setupCommandInventory.addItem(choiceSetEventsPerHour);
+            } else if (x > 5) {
+                setupCommandInventory.addItem()
+            }
+        }
     }
 
     @Override
@@ -50,7 +71,7 @@ public class RandomsPlugin extends JavaPlugin {
 
             if(args.length == 0) {
                 String[] messages = new String[] {"Events:",
-                                                  "  0 = Undefined",
+                                                  "  0 = Derpy Creeper",
                                                   "  1 = Stalker Derpy Pig",
                                                   "  2 = Chicken Attack"};
                 sender.sendMessage(messages);
