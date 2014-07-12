@@ -1,3 +1,4 @@
-name: mmiillkkaa-t3
-main: com.tenjava.entries.mmiillkkaa.t3.TenJava
+name: mmRandoms
+main: com.mmiillkkaa.randoms.RandomsPlugin
+author: mmiillkkaa
 version: '${project.version}'
