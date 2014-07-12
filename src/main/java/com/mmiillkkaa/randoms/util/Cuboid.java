@@ -1,7 +1,6 @@
 package com.mmiillkkaa.randoms.util;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
