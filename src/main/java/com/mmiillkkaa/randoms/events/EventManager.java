@@ -55,16 +55,16 @@ public class EventManager implements Runnable {
         switch (eventNumber) {
             case 0:
             case 1:
-                event = null;
+                event = new StalkerDerpyPigEvent(affected);
                 break;
             case 2:
                 event = new ChickenAttackEvent(affected);
                 break;
         }
-        return triggerEvent(event, affected);
+        return triggerEvent(event);
     }
 
-    public boolean triggerEvent(RandomEvent event, Player affected) {
+    public boolean triggerEvent(RandomEvent event) {
         if(event.safe()) {
             event.execute();
             return true;
