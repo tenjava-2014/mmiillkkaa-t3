@@ -4,9 +4,6 @@ author: mmiillkkaa
 load: STARTUP
 version: '${project.version}'
 commands:
-  triggerrandom:
-    usage: /triggerrandom [number]
-    description: Triggers a random event for debugging purposes.
   randomssetup:
     usage: /randomssetup
     description: Setup the plugin
