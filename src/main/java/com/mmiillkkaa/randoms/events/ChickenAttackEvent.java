@@ -18,6 +18,7 @@ import org.bukkit.entity.Silverfish;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -42,7 +43,7 @@ public class ChickenAttackEvent extends RandomEvent {
          * To be sure the chickens won't suffocate, and can move.
          */
         for(Block block : area.getBlocks(affected.getWorld())) {
-            if(block.getType() != Material.AIR) {
+            if(Arrays.asList(DerpyZombieEvent.passable).contains(block.getType())) {
                 return false;
             }
         }

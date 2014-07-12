@@ -11,10 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Arrays;
+
 /**
  * A creeper with dirt on its head. Doesn't explode. Drops a configurable item.
  */
 public class DerpyZombieEvent extends RandomEvent {
+    public static Material[] passable = new Material[] {Material.YELLOW_FLOWER, Material.RED_ROSE, Material.LONG_GRASS, Material.VINE, Material.AIR};
     private Cuboid area;
 
     public DerpyZombieEvent(Player affected) {
@@ -25,7 +28,7 @@ public class DerpyZombieEvent extends RandomEvent {
     @Override
     public boolean safe() {
         for(Block block : area.getBlocks(affected.getWorld())) {
-            if(block.getType() != Material.AIR) {
+            if(Arrays.asList(passable).contains(block.getType())) {
                 if(safeTwoBlocksAbove(block)) {
                     continue;
                 }
