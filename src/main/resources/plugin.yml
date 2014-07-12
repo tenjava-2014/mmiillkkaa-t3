@@ -2,3 +2,7 @@ name: mmRandoms
 main: com.mmiillkkaa.randoms.RandomsPlugin
 author: mmiillkkaa
 version: '${project.version}'
+commands:
+  triggerrandom:
+    usage: /triggerrandom
+    description: Triggers a random event for debugging purposes.
