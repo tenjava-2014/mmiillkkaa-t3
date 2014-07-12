@@ -34,5 +34,7 @@ public class StalkerDerpyPigEvent extends RandomEvent {
 
         Pig derpyPig = (Pig) affected.getWorld().spawnEntity(affected.getLocation(), EntityType.PIG);
         ocelot.setPassenger(derpyPig);
+        ocelot.setMaxHealth(2000D); //We don't want the ocelot to die until the owner actually owns it.
+        ocelot.setHealth(2000D);
     }
 }
