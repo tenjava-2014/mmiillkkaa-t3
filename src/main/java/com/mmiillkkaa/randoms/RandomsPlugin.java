@@ -76,34 +76,8 @@ public class RandomsPlugin extends JavaPlugin {
                 p.sendMessage(ChatColor.RED + "Could not run the event in your environment.");
             }
             return true;
-        } else if(command.getName().equalsIgnoreCase("eventsperhour")) {
-            if(args.length > 0) {
-                if(!sender.hasPermission("mmrandoms.timer.set")) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to set the number of events" +
-                            " per hour.");
-                    return true;
-                }
+        } else if(command.getName().equalsIgnoreCase("setup")) {
 
-                int newEventsPerHour;
-
-                try {
-                    newEventsPerHour = Integer.parseInt(args[0]);
-                } catch (NumberFormatException e) {
-                    sender.sendMessage(ChatColor.RED + "That is not a number, and example of an acceptable number" +
-                            " would be 5 or 12345");
-                    return true;
-                }
-
-                getConfig().set("EventsPerHour", newEventsPerHour);
-                sender.sendMessage(newEventsPerHour + " events will now occur each hour.");
-            } else {
-                if(!sender.hasPermission("mmrandoms.timer.get")) {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to see the number of events" +
-                            " per hour. (Maybe the admin wants it to be a surprise!)");
-                    return true;
-                }
-                sender.sendMessage(getConfig().getInt("EventsPerHour", 1) + " events occur each hour.");
-            }
             return true;
         }
         return false;

@@ -35,8 +35,7 @@ public class ChickenAttackEvent extends RandomEvent {
          * Search the area a small radius around the player
          * To be sure the chickens won't suffocate, and can move.
          */
-        Block[] blocks = area.getBlocks(affected.getWorld());
-        for(Block block : blocks) {
+        for(Block block : area.getBlocks(affected.getWorld())) {
             if(block.getType() != Material.AIR) {
                 return false;
             }

@@ -22,26 +22,7 @@ public class EventManager implements Runnable {
         }
         Player randomPlayer = players[random.nextInt(players.length)];
 
-        RandomEvent event = null;
-
-        /*
-         * rand contains a number between 0 and 2.
-         * There is a 1/3 chance for a specific event
-         * to occur.
-         */
-        switch (rand) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                event = new ChickenAttackEvent(randomPlayer);
-                break;
-        }
-
-        if(event != null && event.safe()) {
-            event.execute();
-        }
+        triggerEvent(rand, randomPlayer);
     }
 
     /**
@@ -54,6 +35,7 @@ public class EventManager implements Runnable {
         RandomEvent event = null;
         switch (eventNumber) {
             case 0:
+                event = new DerpyCreeperEvent(affected);
             case 1:
                 event = new StalkerDerpyPigEvent(affected);
                 break;
