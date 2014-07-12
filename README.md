@@ -31,5 +31,5 @@ These events will occur on the interval set in the configuration:
   
 These events occur as reactions to other in-game events:
 
-* Super derpy zombie
-  * When lightning strikes a zombie, a giant with dirt on its head appears.
+* Giant
+  * When lightning strikes a zombie, a giant appears.
