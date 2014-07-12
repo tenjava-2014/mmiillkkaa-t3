@@ -51,7 +51,7 @@ public class RandomsPlugin extends JavaPlugin {
                     return true;
                 }
 
-                int newEventsPerHour = 1;
+                int newEventsPerHour;
 
                 try {
                     newEventsPerHour = Integer.parseInt(args[0]);

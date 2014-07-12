@@ -1,29 +1,39 @@
 package com.mmiillkkaa.randoms.events;
 
+import com.mmiillkkaa.randoms.util.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.*;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
+import java.util.Random;
+
+/**
+ * The chicken attack events spawns 1-6 chickens on silverfish around the player.
+ */
 public class ChickenAttackEvent extends RandomEvent {
+    private Cuboid area;
+
     public ChickenAttackEvent(Player affected) {
         super(affected);
+
+        Location playerLocation = affected.getEyeLocation();
+        area = new Cuboid(playerLocation.add(-2, 0, -2), playerLocation.add(2, 1, 2));
     }
 
     @Override
     public boolean safe() {
-        Location playerLocation = affected.getEyeLocation();
-
         /*
          * Search the area a small radius around the player
          * To be sure the chickens won't suffocate, and can move.
          */
-        for(int x = (int) playerLocation.getX() - 2; x < (int) playerLocation.getX() + 2; x++) {
-            for(int y = (int) playerLocation.getY() + 1; y < (int) playerLocation.getY() + 3; y++) {
-                for(int z = (int) playerLocation.getZ() - 2; z < (int) playerLocation.getZ() + 2; z++) {
-                    if(affected.getWorld().getBlockAt(x, y, z).getType() != Material.AIR) {
-                        return false;
-                    }
-                }
+        Block[] blocks = area.getBlocks(affected.getWorld());
+        for(Block block : blocks) {
+            if(block.getType() != Material.AIR) {
+                return false;
             }
         }
         return true;
@@ -31,6 +41,16 @@ public class ChickenAttackEvent extends RandomEvent {
 
     @Override
     public void execute() {
-        affected.sendMessage("Affected!");
+        //This effect will last a long time.
+        PotionEffect invisibility = new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false);
+        int numberOfChickens = new Random().nextInt(5) + 1;
+        World world = affected.getWorld();
+        for(int i = 0; i < numberOfChickens; i++) {
+            Chicken theChicken = (Chicken) world.spawnEntity(area.getRandomLocation(world), EntityType.CHICKEN); // __THE__ chicken.
+            Silverfish attackingEntity = (Silverfish) world.spawnEntity(area.getRandomLocation(world),EntityType.SILVERFISH);
+            attackingEntity.addPotionEffect(invisibility);
+            attackingEntity.setPassenger(theChicken);
+            attackingEntity.setTarget(affected);
+        }
     }
 }
