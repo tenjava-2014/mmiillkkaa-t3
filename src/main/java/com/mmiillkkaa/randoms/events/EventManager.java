@@ -35,7 +35,8 @@ public class EventManager implements Runnable {
         RandomEvent event = null;
         switch (eventNumber) {
             case 0:
-                event = new DerpyCreeperEvent(affected);
+                event = new DerpyZombieEvent(affected);
+                break;
             case 1:
                 event = new StalkerDerpyPigEvent(affected);
                 break;

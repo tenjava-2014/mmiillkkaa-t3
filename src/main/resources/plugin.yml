@@ -6,6 +6,6 @@ commands:
   triggerrandom:
     usage: /triggerrandom [number]
     description: Triggers a random event for debugging purposes.
-  eventsperhour:
-    usage: /eventsperhour [number]
-    description: Shows the number of events per hour, or sets it to the given number.
+  randomssetup:
+    usage: /randomssetup
+    description: Setup the plugin

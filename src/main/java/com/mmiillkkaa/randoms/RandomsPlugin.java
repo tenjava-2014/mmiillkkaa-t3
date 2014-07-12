@@ -19,6 +19,7 @@ public class RandomsPlugin extends JavaPlugin {
      * Inventory containing 2 options: set events per hour, or setup creeper item.
      */
     private Inventory setupCommandInventory;
+    public Inventory creeperCommandInventory;
 
     @Override
     public void onEnable() {
@@ -32,20 +33,24 @@ public class RandomsPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         instance = this;
 
-        setupCommandInventory = getServer().createInventory(null, 27, "Setup");
+        setupCommandInventory = getServer().createInventory(null, 27, "Setup - mmRandoms");
         ItemStack choiceSetEventsPerHour = new ItemStack(Material.REDSTONE_BLOCK, 1);
-        ItemStack choiceSetDerpyCreeperDropItem = new ItemStack(Material.EMERALD_BLOCK, 1);
+        ItemStack choiceSetDerpyCreeperDropItem = new ItemStack(Material.LAPIS_BLOCK, 1);
         choiceSetEventsPerHour.getItemMeta().setDisplayName("Set # of events per hour");
-        choiceSetDerpyCreeperDropItem.getItemMeta().setDisplayName("Set drop of the derpy creeper event.");
+        choiceSetDerpyCreeperDropItem.getItemMeta().setDisplayName("Set drop of derpy zombie event.");
         for(int i = 0; i < 27; i++) {
-            int x = i / 9;
-            int y = i % 9;
+            int x = i % 9;
             if(x < 3) {
                 setupCommandInventory.addItem(choiceSetEventsPerHour);
             } else if (x > 5) {
-                setupCommandInventory.addItem()
+                setupCommandInventory.addItem(choiceSetDerpyCreeperDropItem);
             }
         }
+
+        creeperCommandInventory = getServer().createInventory(null, 9, "Derpy Zombie Drop");
+        ItemStack tipPlaceItem = new ItemStack(Material.EMERALD, 1);
+        tipPlaceItem.getItemMeta().setDisplayName("Place the item which will be dropped by derpy zombie.");
+        creeperCommandInventory.addItem(tipPlaceItem);
     }
 
     @Override
@@ -71,7 +76,7 @@ public class RandomsPlugin extends JavaPlugin {
 
             if(args.length == 0) {
                 String[] messages = new String[] {"Events:",
-                                                  "  0 = Derpy Creeper",
+                                                  "  0 = Derpy Zombie",
                                                   "  1 = Stalker Derpy Pig",
                                                   "  2 = Chicken Attack"};
                 sender.sendMessage(messages);
@@ -82,7 +87,7 @@ public class RandomsPlugin extends JavaPlugin {
             int eventNumber;
             try {
                 eventNumber = Integer.parseInt(args[0]);
-                if(eventNumber > 2 || eventNumber == 0) {
+                if(eventNumber > 2) {
                     sender.sendMessage(ChatColor.RED + "" + eventNumber + " is not a valid event. Use /triggerrandom to get a list of" +
                             " events.");
                     return true;
@@ -97,8 +102,13 @@ public class RandomsPlugin extends JavaPlugin {
                 p.sendMessage(ChatColor.RED + "Could not run the event in your environment.");
             }
             return true;
-        } else if(command.getName().equalsIgnoreCase("setup")) {
-
+        } else if(command.getName().equalsIgnoreCase("randomssetup")) {
+            if(!(sender instanceof Player)) {
+                sender.sendMessage("This can only be run be in-game players.");
+                return true;
+            }
+            Player p = (Player) sender;
+            p.openInventory(setupCommandInventory);
             return true;
         }
         return false;
