@@ -53,7 +53,7 @@ public class RandomsPlugin extends JavaPlugin {
         creeperCommandInventory = getServer().createInventory(null, 9, "Derpy Zombie Drop");
         ItemStack tipPlaceItem = new ItemStack(Material.EMERALD, 1);
         setItemName(tipPlaceItem, "Place the item for derpy zombie to drop.");
-        creeperCommandInventory.addItem(tipPlaceItem);
+        creeperCommandInventory.setItem(5, tipPlaceItem);
     }
 
     @Override
