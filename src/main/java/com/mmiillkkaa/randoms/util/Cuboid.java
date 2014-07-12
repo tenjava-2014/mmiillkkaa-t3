@@ -39,9 +39,9 @@ public class Cuboid {
     public Location getRandomLocation(World world) {
         Random random = new Random();
         Location locationBase = new Location(world, x1, y1, z1);
-        int maxAddToX = Math.abs((x2-x1)) + 1; //Adding one to prevent 0s, which random.nextInt cannot handle
-        int maxAddToY = Math.abs((y2-y1)) + 1;
-        int maxAddToZ = Math.abs((z2-z1)) + 1;
+        int maxAddToX = Math.abs((x2 - x1)) + 1; //Adding one to prevent 0s, which random.nextInt cannot handle
+        int maxAddToY = Math.abs((y2 - y1)) + 1;
+        int maxAddToZ = Math.abs((z2 - z1)) + 1;
         return locationBase.add(random.nextInt(maxAddToX), random.nextInt(maxAddToY), random.nextInt(maxAddToZ));
     }
 

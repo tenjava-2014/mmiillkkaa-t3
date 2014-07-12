@@ -62,11 +62,11 @@ public class ChickenAttackEvent extends RandomEvent {
              * See the AnimalFollow class for more information.
              * The AnimalFollow task will run every 10 ticks (0.5 seconds)
              */
-            AnimalFollow followTask = new AnimalFollow(((CraftChicken)theChicken).getHandle(), ((CraftPlayer)affected).getHandle());
+            AnimalFollow followTask = new AnimalFollow(((CraftChicken) theChicken).getHandle(), ((CraftPlayer) affected).getHandle());
             followTask.setBukkitTaskId(Bukkit.getScheduler()
                     .scheduleSyncRepeatingTask(RandomsPlugin.getInstance(), followTask, 0, 10));
 
-            Silverfish attackingEntity = (Silverfish) world.spawnEntity(area.getRandomLocation(world),EntityType.SILVERFISH);
+            Silverfish attackingEntity = (Silverfish) world.spawnEntity(area.getRandomLocation(world), EntityType.SILVERFISH);
             attackingEntity.addPotionEffect(invisibility);
             theChicken.setPassenger(attackingEntity);
             attackingEntity.setTarget(affected);

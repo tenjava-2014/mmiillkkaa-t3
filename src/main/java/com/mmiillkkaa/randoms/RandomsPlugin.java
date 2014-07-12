@@ -34,9 +34,11 @@ public class RandomsPlugin extends JavaPlugin {
          * Schedule events
          */
         int eventsPerHour = getConfig().getInt("EventsPerHour", 1);
-        int delay = (20 * 60 * 60)/eventsPerHour; // Ticks Per Second * Seconds per Minute * Minutes per Hour all
-                                                  // Divided by the number of events in an hour gives us
-                                                  // The delay between each event.
+        /*
+         * The delay between events is the number of ticks per second times seconds per minute times minutes per hour,
+         * all divided by the number of events in an hour.
+         */
+        int delay = (20 * 60 * 60) / eventsPerHour;
         eventManager = new EventManager();
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, eventManager, 0, delay);
 
@@ -69,7 +71,7 @@ public class RandomsPlugin extends JavaPlugin {
             int x = i % 9;
             if(x < 3) {
                 setupCommandInventory.setItem(i, choiceSetEventsPerHour);
-            } else if (x > 3 && x < 5) {
+            } else if(x > 3 && x < 5) {
                 setupCommandInventory.setItem(i, choiceSetCakeInterval);
             } else {
                 setupCommandInventory.setItem(i, choiceSetDerpyZombieDropItem);
@@ -111,8 +113,9 @@ public class RandomsPlugin extends JavaPlugin {
 
     /**
      * Sets the ItemStack's name.
+     *
      * @param stack ItemStack to rename.
-     * @param name New name.
+     * @param name  New name.
      */
     private void setItemName(ItemStack stack, String name) {
         ItemMeta meta = stack.getItemMeta();
@@ -122,6 +125,7 @@ public class RandomsPlugin extends JavaPlugin {
 
     /**
      * Sets the ItemStack's lore
+     *
      * @param stack ItemStack to edit
      * @param lines New lore
      */

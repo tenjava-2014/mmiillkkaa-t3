@@ -30,7 +30,7 @@ public class EntityListener implements Listener {
             ocelot.setMaxHealth(10D);
             ocelot.setHealth(10D);
             ocelot.removePotionEffect(PotionEffectType.INVISIBILITY);
-            ((Player)ocelot.getOwner()).sendMessage(ChatColor.BLUE + "Congratulations, you have a cat now!");
+            ((Player) ocelot.getOwner()).sendMessage(ChatColor.BLUE + "Congratulations, you have a cat now!");
         } else if(entity instanceof Zombie && entity.getEquipment().getHelmet().getType() == Material.DIRT) {
             ItemStack stack = RandomsPlugin.getInstance().getConfig().getItemStack("DerpyZombie.DropItemStack");
             entity.getWorld().dropItemNaturally(entity.getLocation(), stack);

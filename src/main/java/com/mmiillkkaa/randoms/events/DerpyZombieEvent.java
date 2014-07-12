@@ -49,6 +49,7 @@ public class DerpyZombieEvent extends RandomEvent {
 
     /**
      * Checks if the two blocks above the given block are air
+     *
      * @return true if the blocks are air, else false.
      */
     private boolean safeTwoBlocksAbove(Block block) {

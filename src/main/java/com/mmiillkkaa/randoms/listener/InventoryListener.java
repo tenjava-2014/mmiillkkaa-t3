@@ -23,18 +23,18 @@ public class InventoryListener implements Listener {
         if(inventory == null || inventory.getName() == null) { //Why does this happen?
             return;
         }
-        if (inventory.getName().equalsIgnoreCase("Setup - mmRandoms")) {
-            if (itemClicked.getType() == Material.REDSTONE_BLOCK) {
+        if(inventory.getName().equalsIgnoreCase("Setup - mmRandoms")) {
+            if(itemClicked.getType() == Material.REDSTONE_BLOCK) {
                 player.sendMessage(ChatColor.BLUE + "The number of events which occur each hour can be changed in the config.yml of this plugin.");
                 player.closeInventory();
-            } else if (itemClicked.getType() == Material.LAPIS_BLOCK) {
+            } else if(itemClicked.getType() == Material.LAPIS_BLOCK) {
                 player.openInventory(RandomsPlugin.getInstance().zombieCommandInventory);
-            } else if (itemClicked.getType() == Material.CAKE) {
+            } else if(itemClicked.getType() == Material.CAKE) {
                 player.sendMessage(ChatColor.BLUE + "The percentage chance of a cake spawning in the world can be changed in the config.yml of this plugin.");
                 player.closeInventory();
             }
             event.setCancelled(true);
-        } else if (inventory.getName().equalsIgnoreCase("Derpy Zombie Drop")) {
+        } else if(inventory.getName().equalsIgnoreCase("Derpy Zombie Drop")) {
             event.setCancelled(true);
             if(event.getRawSlot() > 8) {
                 RandomsPlugin.getInstance().getConfig().set("DerpyZombie.DropItemStack", itemClicked.clone());

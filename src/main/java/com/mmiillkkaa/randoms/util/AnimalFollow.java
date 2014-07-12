@@ -24,6 +24,7 @@ public class AnimalFollow implements Runnable {
 
     /**
      * Sets the scheduler task id so we can stop this later.
+     *
      * @param id Task ID
      */
     public void setBukkitTaskId(int id) {

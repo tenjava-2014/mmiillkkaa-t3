@@ -27,8 +27,9 @@ public class EventManager implements Runnable {
 
     /**
      * Triggers a random event.
+     *
      * @param eventNumber Number of the event
-     * @param affected The player the event will affect
+     * @param affected    The player the event will affect
      * @return true if event triggered successfully, else false.
      */
     public boolean triggerEvent(int eventNumber, Player affected) {
@@ -49,6 +50,7 @@ public class EventManager implements Runnable {
 
     /**
      * Actually triggers the event
+     *
      * @param event Event to run
      * @return true if event ran, else false.
      */

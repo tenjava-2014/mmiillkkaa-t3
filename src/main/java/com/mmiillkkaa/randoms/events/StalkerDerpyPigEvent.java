@@ -11,7 +11,7 @@ import java.util.Random;
 
 /**
  * A pig riding a cat walks and runs around with you.
- *
+ * <p/>
  * You get a free cat out of it :)
  */
 public class StalkerDerpyPigEvent extends RandomEvent {
