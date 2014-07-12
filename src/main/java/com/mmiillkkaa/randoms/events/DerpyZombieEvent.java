@@ -17,7 +17,8 @@ import java.util.Arrays;
  * A creeper with dirt on its head. Doesn't explode. Drops a configurable item.
  */
 public class DerpyZombieEvent extends RandomEvent {
-    public static Material[] passable = new Material[] {Material.YELLOW_FLOWER, Material.RED_ROSE, Material.LONG_GRASS, Material.VINE, Material.AIR};
+    public static Material[] passable = new Material[] {Material.YELLOW_FLOWER, Material.RED_ROSE,
+            Material.LONG_GRASS, Material.VINE, Material.AIR, Material.SIGN_POST, Material.WALL_SIGN};
     private Cuboid area;
 
     public DerpyZombieEvent(Player affected) {
