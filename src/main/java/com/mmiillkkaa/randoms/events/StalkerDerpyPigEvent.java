@@ -1,5 +1,8 @@
 package com.mmiillkkaa.randoms.events;
 
+import net.minecraft.server.v1_7_R3.PacketPlayOutEntityDestroy;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftOcelot;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Pig;
@@ -36,5 +39,7 @@ public class StalkerDerpyPigEvent extends RandomEvent {
         ocelot.setPassenger(derpyPig);
         ocelot.setMaxHealth(2000D); //We don't want the ocelot to die until the owner actually owns it.
         ocelot.setHealth(2000D);
+
+        ((CraftPlayer) affected).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityDestroy(ocelot.getEntityId()));
     }
 }
