@@ -2,6 +2,7 @@ package com.mmiillkkaa.randoms;
 
 import com.mmiillkkaa.randoms.events.EventManager;
 import com.mmiillkkaa.randoms.listener.EntityListener;
+import com.mmiillkkaa.randoms.listener.InventoryListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RandomsPlugin extends JavaPlugin {
@@ -31,25 +33,26 @@ public class RandomsPlugin extends JavaPlugin {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, eventManager, 0, delay);
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(), this);
         instance = this;
 
         setupCommandInventory = getServer().createInventory(null, 27, "Setup - mmRandoms");
         ItemStack choiceSetEventsPerHour = new ItemStack(Material.REDSTONE_BLOCK, 1);
-        ItemStack choiceSetDerpyCreeperDropItem = new ItemStack(Material.LAPIS_BLOCK, 1);
-        choiceSetEventsPerHour.getItemMeta().setDisplayName("Set # of events per hour");
-        choiceSetDerpyCreeperDropItem.getItemMeta().setDisplayName("Set drop of derpy zombie event.");
+        ItemStack choiceSetDerpyZombieDropItem = new ItemStack(Material.LAPIS_BLOCK, 1);
+        setItemName(choiceSetEventsPerHour, "Set number of events to occur each hour.");
+        setItemName(choiceSetDerpyZombieDropItem, "Set drop of the derpy zombie.");
         for(int i = 0; i < 27; i++) {
             int x = i % 9;
             if(x < 3) {
                 setupCommandInventory.addItem(choiceSetEventsPerHour);
             } else if (x > 5) {
-                setupCommandInventory.addItem(choiceSetDerpyCreeperDropItem);
+                setupCommandInventory.addItem(choiceSetDerpyZombieDropItem);
             }
         }
 
         creeperCommandInventory = getServer().createInventory(null, 9, "Derpy Zombie Drop");
         ItemStack tipPlaceItem = new ItemStack(Material.EMERALD, 1);
-        tipPlaceItem.getItemMeta().setDisplayName("Place the item which will be dropped by derpy zombie.");
+        setItemName(tipPlaceItem, "Place the item for derpy zombie to drop.");
         creeperCommandInventory.addItem(tipPlaceItem);
     }
 
@@ -112,5 +115,11 @@ public class RandomsPlugin extends JavaPlugin {
             return true;
         }
         return false;
+    }
+
+    private void setItemName(ItemStack stack, String name) {
+        ItemMeta meta = stack.getItemMeta();
+        meta.setDisplayName(name);
+        stack.setItemMeta(meta);
     }
 }
