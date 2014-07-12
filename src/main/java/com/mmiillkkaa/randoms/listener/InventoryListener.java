@@ -19,7 +19,7 @@ public class InventoryListener implements Listener {
         }
         Player player = (Player) event.getWhoClicked();
         Inventory inventory = event.getInventory();
-        if(inventory == null) { //Why does this happen?
+        if(inventory == null || inventory.getName() == null) { //Why does this happen?
             return;
         }
         if(event.getAction() == InventoryAction.PLACE_ALL

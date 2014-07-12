@@ -44,9 +44,9 @@ public class RandomsPlugin extends JavaPlugin {
         for(int i = 0; i < 27; i++) {
             int x = i % 9;
             if(x < 3) {
-                setupCommandInventory.addItem(choiceSetEventsPerHour);
+                setupCommandInventory.setItem(i, choiceSetEventsPerHour);
             } else if (x > 5) {
-                setupCommandInventory.addItem(choiceSetDerpyZombieDropItem);
+                setupCommandInventory.setItem(i, choiceSetDerpyZombieDropItem);
             }
         }
 
