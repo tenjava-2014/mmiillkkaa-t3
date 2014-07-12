@@ -46,7 +46,7 @@ public class EntityListener implements Listener {
         for(Entity entity : entities) {
             if(entity instanceof Zombie) { //On zombie lightning strike, transform into Giant.
                 ((Zombie) entity).setHealth(1D);
-                Giant giant = (Giant) entity.getWorld().spawnEntity(entity.getLocation(), EntityType.GIANT);
+                entity.getWorld().spawnEntity(entity.getLocation(), EntityType.GIANT);
             }
         }
     }
