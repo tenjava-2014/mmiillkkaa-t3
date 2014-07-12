@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -29,7 +28,10 @@ public class InventoryListener implements Listener {
                 player.sendMessage(ChatColor.BLUE + "The number of events which occur each hour can be changed in the config.yml of this plugin.");
                 player.closeInventory();
             } else if (itemClicked.getType() == Material.LAPIS_BLOCK) {
-                player.openInventory(RandomsPlugin.getInstance().creeperCommandInventory);
+                player.openInventory(RandomsPlugin.getInstance().zombieCommandInventory);
+            } else if (itemClicked.getType() == Material.CAKE) {
+                player.sendMessage(ChatColor.BLUE + "The percentage chance of a cake spawning in the world can be changed in the config.yml of this plugin.");
+                player.closeInventory();
             }
             event.setCancelled(true);
         } else if (inventory.getName().equalsIgnoreCase("Derpy Zombie Drop")) {

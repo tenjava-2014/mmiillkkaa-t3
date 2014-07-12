@@ -1,6 +1,7 @@
 name: mmRandoms
 main: com.mmiillkkaa.randoms.RandomsPlugin
 author: mmiillkkaa
+load: STARTUP
 version: '${project.version}'
 commands:
   triggerrandom:

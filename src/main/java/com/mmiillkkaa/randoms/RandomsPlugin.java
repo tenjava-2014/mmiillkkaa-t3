@@ -3,6 +3,7 @@ package com.mmiillkkaa.randoms;
 import com.mmiillkkaa.randoms.events.EventManager;
 import com.mmiillkkaa.randoms.listener.EntityListener;
 import com.mmiillkkaa.randoms.listener.InventoryListener;
+import com.mmiillkkaa.randoms.listener.WorldListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,10 +27,13 @@ public class RandomsPlugin extends JavaPlugin {
     /**
      * Inventory which allows the user to click which item to drop.
      */
-    public Inventory creeperCommandInventory;
+    public Inventory zombieCommandInventory;
 
     @Override
     public void onEnable() {
+        /*
+         * Schedule events
+         */
         int eventsPerHour = getConfig().getInt("EventsPerHour", 1);
         int delay = (20 * 60 * 60)/eventsPerHour; // Ticks Per Second * Seconds per Minute * Minutes per Hour all
                                                   // Divided by the number of events in an hour gives us
@@ -37,33 +41,47 @@ public class RandomsPlugin extends JavaPlugin {
         eventManager = new EventManager();
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, eventManager, 0, delay);
 
+        /*
+         * Register listeners
+         */
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryListener(), this);
+        getServer().getPluginManager().registerEvents(new WorldListener(), this);
         instance = this;
 
+        /*
+         * Initial setup
+         */
         if(getConfig().getItemStack("DerpyZombie.DropItemStack") == null) {
             getConfig().set("DerpyZombie.DropItemStack", new ItemStack(Material.APPLE, 1));
         }
 
+        /*
+         * Setup the setup command's inventory UI.
+         */
         setupCommandInventory = getServer().createInventory(null, 27, "Setup - mmRandoms");
         ItemStack choiceSetEventsPerHour = new ItemStack(Material.REDSTONE_BLOCK, 1);
         ItemStack choiceSetDerpyZombieDropItem = new ItemStack(Material.LAPIS_BLOCK, 1);
+        ItemStack choiceSetCakeInterval = new ItemStack(Material.CAKE, 1);
         setItemName(choiceSetEventsPerHour, "Set number of events to occur each hour.");
         setItemName(choiceSetDerpyZombieDropItem, "Set drop of the derpy zombie.");
+        setItemName(choiceSetCakeInterval, "Set percentage chance of cake in the world.");
         for(int i = 0; i < 27; i++) {
             int x = i % 9;
             if(x < 3) {
                 setupCommandInventory.setItem(i, choiceSetEventsPerHour);
-            } else if (x > 5) {
+            } else if (x > 3 && x < 5) {
+                setupCommandInventory.setItem(i, choiceSetCakeInterval);
+            } else {
                 setupCommandInventory.setItem(i, choiceSetDerpyZombieDropItem);
             }
         }
 
-        creeperCommandInventory = getServer().createInventory(null, 9, "Derpy Zombie Drop");
+        zombieCommandInventory = getServer().createInventory(null, 9, "Derpy Zombie Drop");
         ItemStack tipPlaceItem = new ItemStack(Material.EMERALD, 1);
         setItemName(tipPlaceItem, "Click an item.");
         setStackLore(tipPlaceItem, new String[] {"The stack you click", "will be the stack", "the zombie drops."});
-        creeperCommandInventory.setItem(4, tipPlaceItem);
+        zombieCommandInventory.setItem(4, tipPlaceItem);
     }
 
     @Override

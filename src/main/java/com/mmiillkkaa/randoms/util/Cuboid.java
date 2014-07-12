@@ -64,6 +64,6 @@ public class Cuboid {
      * @return The volume of the cuboid.
      */
     public int getVolume() {
-        return (int) ((x2 - x1) * (y2 - y1) * (z2 - z1));
+        return (int) (Math.abs((x2 - x1)) * Math.abs((y2 - y1)) * Math.abs((z2 - z1)));
     }
 }

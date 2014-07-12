@@ -33,3 +33,21 @@ These events occur as reactions to other in-game events:
 
 * Giant
   * When lightning strikes a zombie, a giant appears.
+* Cake
+  * Added to world generation.
+  * Cake spawns in world with a configurable chance.
+
+# Configuration
+
+Configuration options:
+
+* `EventsPerHour`
+  * The number of random evens that will occur each our.
+  * Events occur on at a set rate.
+  * Default: 1
+* `DerpyZombie.DropItemStack`
+  * Change nothing here. The in-game setup will help you with this.
+  * Default: 1 Apple
+* `PercentageChanceOfCake`
+  * The chance of cake spawning in a chunk.
+  * Default: 10% (10)
