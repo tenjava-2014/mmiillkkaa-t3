@@ -11,8 +11,11 @@ This is a submission for the 2014 ten.java contest.
 - __Stream URL:__ None
 
 # Setup
+
 After the plugin has been placed in the plugins folder and the configuration has been generated, you can run the command
 `/setup` which will allow you to change a few things.
+
+For cake to spawn, you will need to have a fresh world or go to new chunks.
 
 # Events
 
