@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 public class CakePopulator extends BlockPopulator {
     @Override
     public void populate(World world, Random random, Chunk chunk) {
-        if(Math.random() > (RandomsPlugin.getInstance().getConfig().getInt("PercentageChanceOfCake", 10)) / 100) {
-
+        if(Math.random() < (RandomsPlugin.getInstance().getConfig().getInt("PercentageChanceOfCake", 10)) / 100) {
+            return;
         }
         int worldX = chunk.getX() * 16;
         int worldZ = chunk.getZ() * 16;
