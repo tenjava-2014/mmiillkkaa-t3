@@ -27,7 +27,7 @@ public class EventSchedule implements Runnable {
         RandomEvent event = null;
 
         /*
-         * rand contanis a number between 0 and 99.
+         * rand contains a number between 0 and 99.
          * There is a 1/3 chance for a specific event
          * to occur.
          */
@@ -41,11 +41,8 @@ public class EventSchedule implements Runnable {
                 break;
         }
 
-        if(event != null && event.safe()){
+        if(event != null && event.safe()) {
             event.execute();
-            Logger.getLogger("Minecraft").log(Level.INFO, "Ran: " + randomPlayer.getName());
-        } else {
-            Logger.getLogger("Minecraft").log(Level.INFO, "Unran: " + randomPlayer.getName());
         }
     }
 }
